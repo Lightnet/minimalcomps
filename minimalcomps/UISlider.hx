@@ -33,12 +33,12 @@ import flash.events.Event;
 
 class UISlider extends Component {
 	
-	public var label(getLabel, setLabel) : String;
-	public var labelPrecision(getLabelPrecision, setLabelPrecision) : Int;
-	public var maximum(getMaximum, setMaximum) : Float;
-	public var minimum(getMinimum, setMinimum) : Float;
-	public var tick(getTick, setTick) : Float;
-	public var value(getValue, setValue) : Float;
+	public var label(get, set) : String;
+	public var labelPrecision(get, set) : Int;
+	public var maximum(get, set) : Float;
+	public var minimum(get, set) : Float;
+	public var tick(get, set) : Float;
+	public var value(get, set) : Float;
 	
 	var _label:Label;
 	var _valueLabel:Label;
@@ -102,9 +102,6 @@ class UISlider extends Component {
 		
 	}
 	
-	
-	
-	
 	///////////////////////////////////
 	// public methods
 	///////////////////////////////////
@@ -129,9 +126,6 @@ class UISlider extends Component {
 		_slider.setSliderParams(min, max, value);
 	}
 	
-	
-	
-	
 	///////////////////////////////////
 	// event handlers
 	///////////////////////////////////
@@ -145,9 +139,6 @@ class UISlider extends Component {
 		dispatchEvent(new Event(Event.CHANGE));
 	}
 	
-	
-	
-	
 	///////////////////////////////////
 	// getter/setters
 	///////////////////////////////////
@@ -155,66 +146,66 @@ class UISlider extends Component {
 	/**
 	 * Sets / gets the current value of this slider.
 	 */
-	public function setValue(v:Float):Float {
+	public function set_value(v:Float):Float {
 		_slider.value = v;
 		formatValueLabel();
 		return v;
 	}
-	public function getValue():Float {
+	public function get_value():Float {
 		return _slider.value;
 	}
 	
 	/**
 	 * Gets / sets the maximum value of this slider.
 	 */
-	public function setMaximum(m:Float):Float {
+	public function set_maximum(m:Float):Float {
 		return _slider.maximum = m;
 	}
-	public function getMaximum():Float {
+	public function get_maximum():Float {
 		return _slider.maximum;
 	}
 	
 	/**
 	 * Gets / sets the minimum value of this slider.
 	 */
-	public function setMinimum(m:Float):Float {
+	public function set_minimum(m:Float):Float {
 		return _slider.minimum = m;
 	}
-	public function getMinimum():Float {
+	public function get_minimum():Float {
 		return _slider.minimum;
 	}
 	
 	/**
 	 * Gets / sets the number of decimals to format the value label. Does not affect the actual value of the slider, just the number shown.
 	 */
-	public function setLabelPrecision(decimals:Int):Int {
+	public function set_labelPrecision(decimals:Int):Int {
 		return _precision = decimals;
 	}
-	public function getLabelPrecision():Int {
+	public function get_labelPrecision():Int {
 		return _precision;
 	}
 	
 	/**
 	 * Gets / sets the text shown in this component's label.
 	 */
-	public function setLabel(str:String):String {
+	public function set_label(str:String):String {
 		_labelText = str;
 		draw();
 		return str;
 	}
-	public function getLabel():String {
+	public function get_label():String {
 		return _labelText;
 	}
 	
 	/**
 	 * Gets / sets the tick value of this slider. This round the value to the nearest multiple of this number. 
 	 */
-	public function setTick(t:Float):Float {
+	public function set_tick(t:Float):Float {
 		_tick = t;
 		_slider.tick = _tick;
 		return t;
 	}
-	public function getTick():Float {
+	public function get_tick():Float {
 		return _tick;
 	}
 	

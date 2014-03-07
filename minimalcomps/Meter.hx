@@ -35,11 +35,11 @@ import flash.filters.DropShadowFilter;
 
 class Meter extends Component {
 	
-	public var label(getLabel, setLabel) : String;
-	public var maximum(getMaximum, setMaximum) : Float;
-	public var minimum(getMinimum, setMinimum) : Float;
-	public var showValues(getShowValues, setShowValues) : Bool;
-	public var value(getValue, setValue) : Float;
+	public var label(get, set) : String;
+	public var maximum(get, set) : Float;
+	public var minimum(get, set) : Float;
+	public var showValues(get, set) : Bool;
+	public var value(get, set) : Float;
 	
 	var _damp:Float ;
 	var _dial:Sprite;
@@ -261,63 +261,63 @@ class Meter extends Component {
 	/**
 	 * Gets / sets the maximum value for the meter.
 	 */
-	public function setMaximum(value:Float):Float {
+	public function set_maximum(value:Float):Float {
 		_maximum = value;
 		_maxLabel.text = Std.string( _maximum );
 		update();
 		return value;
 	}
-	public function getMaximum():Float {
+	public function get_maximum():Float {
 		return _maximum;
 	}
 	
 	/**
 	 * Gets / sets the minimum value for the meter.
 	 */
-	public function setMinimum(value:Float):Float {
+	public function set_minimum(value:Float):Float {
 		_minimum = value;
 		_minLabel.text = Std.string( _minimum );
 		update();
 		return value;
 	}
-	public function getMinimum():Float {
+	public function get_minimum():Float {
 		return _minimum;
 	}
 	
 	/**
 	 * Gets / sets the current value for the meter.
 	 */
-	public function setValue(val:Float):Float {
+	public function set_value(val:Float):Float {
 		_value = val;
 		update();
 		return val;
 	}
-	public function getValue():Float {
+	public function get_value():Float {
 		return _value;
 	}
 	
 	/**
 	 * Gets / sets the label shown on the meter.
 	 */
-	public function setLabel(value:String):String {
+	public function set_label(value:String):String {
 		_labelText = value;
 		_label.text = _labelText;
 		return value;
 	}
-	public function getLabel():String {
+	public function get_label():String {
 		return _labelText;
 	}
 	
 	/**
 	 * Gets / sets whether or not value labels will be shown for max and min values.
 	 */
-	public function setShowValues(value:Bool):Bool {
+	public function set_showValues(value:Bool):Bool {
 		_showValues = value;
 		_minLabel.visible = _showValues;
 		_maxLabel.visible = _showValues;
 		return value;
 	}
-	public function getShowValues():Bool {
+	public function get_showValues():Bool {
 		return _showValues;
 	}
 }

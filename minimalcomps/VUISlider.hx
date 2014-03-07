@@ -32,7 +32,7 @@ package minimalcomps;
 	import flash.events.Event;
 
 	class VUISlider extends UISlider {
-				
+		
 		/**
 		 * Constructor
 		 * @param parent The parent DisplayObjectContainer on which to add this VUISlider.
@@ -54,9 +54,6 @@ package minimalcomps;
 			setSize(20, 146);
 		}
 		
-		
-		
-		
 		///////////////////////////////////
 		// public methods
 		///////////////////////////////////
@@ -77,9 +74,6 @@ package minimalcomps;
 			_valueLabel.x = width / 2 - _valueLabel.width / 2;
 		}
 		
-		
-		
-		
 		///////////////////////////////////
 		// event handlers
 		///////////////////////////////////
@@ -88,7 +82,7 @@ package minimalcomps;
 		// getter/setters
 		///////////////////////////////////
 		
-		public override function getWidth():Float {
+		public override function get_width():Float {
 			if(_label == null) return _width;
 			return Math.max(_width, _label.width);
 		}

@@ -47,21 +47,21 @@ class PFRondaSeven extends flash.text.Font {}
 
 class Component implements IEventDispatcher {
 	
-	public var height(getHeight, setHeight) : Float;
-	public var width(getWidth, setWidth) : Float;
-	public var x(default, setX) : Float;
-	public var y(default, setY) : Float;
-	public var mouseX(getMouseX,null) : Float;
-	public var mouseY(getMouseY,null) : Float;
-	public var mouseEnabled(getMouseEnabled,null) : Bool;
-	public var mouseChildren(getMouseChildren,null) : Bool;
-	public var filters(getFilters,null) : Array<Dynamic>;
-	public var useHandCursor(getUseHandCursor,setUseHandCursor) : Bool;
-	public var buttonMode(getButtonMode,setButtonMode) : Bool;	
-	public var stage(getStage,null) : Stage;
-	public var numChildren(getNumChildren,null) : Int;
-	public var visible(getVisible,setVisible) : Bool;
-	public var graphics(getGraphics,null) : flash.display.Graphics;
+	public var height(get, set) : Float;
+	public var width(get, set) : Float;
+	public var x(default, set) : Float;
+	public var y(default, set) : Float;
+	public var mouseX(get,null) : Float;
+	public var mouseY(get,null) : Float;
+	public var mouseEnabled(get,null) : Bool;
+	public var mouseChildren(get,null) : Bool;
+	public var filters(get,null) : Array<Dynamic>;
+	public var useHandCursor(get,set) : Bool;
+	public var buttonMode(get,set) : Bool;	
+	public var stage(get,null) : Stage;
+	public var numChildren(get,null) : Int;
+	public var visible(get,set) : Bool;
+	public var graphics(get,null) : flash.display.Graphics;
 	public var parent(default,null) : Dynamic;
 	
 	// Composition instead of inheritence because of haxe getter/setter handicap
@@ -103,7 +103,6 @@ class Component implements IEventDispatcher {
 		
 	}
 	
-	
 	/********** Sprite composition ***************/
 	public function addChild( child : Dynamic ) {
 		if( Std.is( child , Component) ) child = untyped child._comp;			
@@ -115,7 +114,7 @@ class Component implements IEventDispatcher {
 		return _comp.removeChild( child );
 	}
 	
-	public function addEventListener(type : String, listener : Dynamic->Void, ?useCapture : Bool = false, ?priority : Int = 0, ?useWeakReference : Bool = false) : Void {
+	public function addEventListener(type : String, listener : Dynamic -> Void, useCapture : Bool = false, priority : Int = 0, useWeakReference : Bool = false) : Void {
 		_comp.addEventListener( type , listener , useCapture , priority , useWeakReference );
 	}
 	public function dispatchEvent(event : Event) : Bool {
@@ -124,8 +123,8 @@ class Component implements IEventDispatcher {
 	public function hasEventListener(type : String) : Bool {
 		return _comp.hasEventListener( type );
 	}
-	public function removeEventListener(type : String, listener : Dynamic->Void, ?useCapture : Bool = false) : Void {
-		_comp.removeEventListener( type , listener , useCapture );
+	public function removeEventListener(type : String, listener : Dynamic -> Void, useCapture : Bool = false) : Void {
+		_comp.removeEventListener(type, listener, useCapture);
 	}
 	public function willTrigger(type : String) : Bool {
 		return _comp.willTrigger( type );
@@ -142,9 +141,11 @@ class Component implements IEventDispatcher {
 	 * @param dist The distance of the shadow.
 	 * @param knockout Whether or not to create a knocked out shadow.
 	 */
+	
 	function getShadow(dist:Float, ?knockout:Bool = false):DropShadowFilter {
 		return new DropShadowFilter(dist, 45, Style.DROPSHADOW, 1, dist, dist, .3, 1, knockout);
 	}
+	
 	
 	/**
 	 * Marks the component to be redrawn on the next frame.
@@ -152,10 +153,7 @@ class Component implements IEventDispatcher {
 	function invalidate() {
 		addEventListener(Event.ENTER_FRAME, onInvalidate);
 	}
-	
-	
-	
-	
+
 	///////////////////////////////////
 	// public methods
 	///////////////////////////////////
@@ -195,10 +193,7 @@ class Component implements IEventDispatcher {
 	public function draw() {
 		dispatchEvent(new Event(Component.DRAW));
 	}
-	
-	
-	
-	
+
 	///////////////////////////////////
 	// event handlers
 	///////////////////////////////////
@@ -210,10 +205,7 @@ class Component implements IEventDispatcher {
 		removeEventListener(Event.ENTER_FRAME, onInvalidate);
 		draw();
 	}
-	
-	
-	
-	
+
 	///////////////////////////////////
 	// getter/setters
 	///////////////////////////////////
@@ -221,82 +213,82 @@ class Component implements IEventDispatcher {
 	/**
 	 * Sets/gets the width of the component.
 	 */
-	public function setWidth(w:Float):Float{
+	public function set_width(w:Float):Float{
 		_width = w;
 		invalidate();
 		dispatchEvent(new Event(Event.RESIZE));
 		return w;
 	}
-	public function getWidth():Float{
+	public function get_width():Float{
 		return _width;
 	}
 	
 	/**
 	 * Sets/gets the height of the component.
 	 */
-	public function setHeight(h:Float):Float{
+	public function set_height(h:Float):Float{
 		_height = h;
 		invalidate();
 		dispatchEvent(new Event(Event.RESIZE));
 		return h;
 	}
-	public function getHeight():Float{
+	public function get_height():Float{
 		return _height;
 	}
 	
 	/**
 	 * Overrides the setter for x to always place the component on a whole pixel.
 	 */
-	public function setX(value:Float):Float{
+	public function set_x(value:Float):Float{
 		return x = _comp.x = Math.round(value);
 	}
 	
 	/**
 	 * Overrides the setter for y to always place the component on a whole pixel.
 	 */
-	public function setY(value:Float):Float{
+	public function set_y(value:Float):Float{
 		return y = _comp.y = Math.round(value);
 	}
 	
-	public function getMouseX():Float{
+	public function get_mouseX():Float{
 		return _comp.mouseX;
 	}
 	
-	public function getMouseY():Float{
+	public function get_mouseY():Float{
 		return _comp.mouseY;
 	}
 	
-	public function getMouseEnabled():Bool{
+	public function get_mouseEnabled():Bool{
 		return _comp.mouseEnabled;
 	}
 
-	public function getMouseChildren():Bool{
+	public function get_mouseChildren():Bool{
 		return _comp.mouseChildren;
 	}
 
-	public function getButtonMode():Bool{
+	public function get_buttonMode():Bool{
 		return _comp.buttonMode;
 	}
-	public function setButtonMode(b:Bool):Bool{
+	public function set_buttonMode(b:Bool):Bool{
 		return _comp.buttonMode = b;
 	}
 
-	public function getUseHandCursor():Bool{
+	public function get_useHandCursor():Bool{
 		return _comp.useHandCursor;
 	}
-	public function setUseHandCursor(b:Bool):Bool{
+	public function set_useHandCursor(b:Bool):Bool{
 		return _comp.useHandCursor = b;
 	}
 	
-	public function getFilters():Array<Dynamic>{
+	public function get_filters():Array<Dynamic>{
 		return _comp.filters;
 	}
 	
-	public function getStage():Stage{
+	public function get_stage():Stage{
 		return _comp.stage;
 	}
 	
-	public function getNumChildren():Int{
+	public function get_numChildren():Int{
 		return _comp.numChildren;
 	}
 	
@@ -304,14 +296,14 @@ class Component implements IEventDispatcher {
 		return _comp.getChildAt( n );
 	}
 	
-	public function getVisible() : Bool {
+	public function get_visible() : Bool {
 		return _comp.visible;
 	}
-	public function setVisible( visible : Bool ) : Bool {
+	public function set_visible( visible : Bool ) : Bool {
 		return _comp.visible = visible;
 	}
 	
-	public function getGraphics() : flash.display.Graphics {
+	public function get_graphics() : flash.display.Graphics {
 		return _comp.graphics;
 	}
 	

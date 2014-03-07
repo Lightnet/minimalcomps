@@ -35,8 +35,8 @@ import flash.events.MouseEvent;
 
 class RadioButton extends Component {
 	
-	public var label(getLabel, setLabel) : String;
-	public var selected(getSelected, setSelected) : Bool;
+	public var label(get, set) : String;
+	public var selected(get, set) : Bool;
 	
 	var _back:Sprite;
 	var _button:Sprite;
@@ -175,26 +175,26 @@ class RadioButton extends Component {
 	/**
 	 * Sets / gets the selected state of this CheckBox.
 	 */
-	public function setSelected(s:Bool):Bool {
+	public function set_selected(s:Bool):Bool {
 		_selected = s;
 		_button.visible = _selected;
 		if(_selected)
 			RadioButton.clear(this);
 		return s;
 	}
-	public function getSelected():Bool {
+	public function get_selected():Bool {
 		return _selected;
 	}
 
 	/**
 	 * Sets / gets the label text shown on this CheckBox.
 	 */
-	public function setLabel(str:String):String {
+	public function set_label(str:String):String {
 		_labelText = str;
 		invalidate();
 		return str;
 	}
-	public function getLabel():String {
+	public function get_label():String {
 		return _labelText;
 	}
 	

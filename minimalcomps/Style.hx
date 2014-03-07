@@ -34,6 +34,8 @@ typedef UInt = Int;
 #end
 
 class Style {
+	public static var FontName:String = "MyFont";
+	
 	public inline static var BACKGROUND:UInt = 0xCCCCCC;
 	public inline static var BUTTON_FACE:UInt = 0xFFFFFF;
 	public inline static var INPUT_TEXT:UInt = 0x333333;

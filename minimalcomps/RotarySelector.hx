@@ -35,9 +35,9 @@ import flash.events.MouseEvent;
 
 class RotarySelector extends Component {
 	
-	public var choice(getChoice, setChoice) : UInt;
-	public var labelMode(getLabelMode, setLabelMode) : String;
-	public var numChoices(getNumChoices, setNumChoices) : UInt;
+	public var choice(get, set) : UInt;
+	public var labelMode(get, set) : String;
+	public var numChoices(get, set) : UInt;
 	
 	public inline static var ALPHABETIC:String = "alphabetic";
 	public inline static var NUMERIC:String = "numeric";
@@ -107,6 +107,7 @@ class RotarySelector extends Component {
 	 * Decrements the index of the current choice.
 	 */
 	function decrement() {
+		
 		if(_choice > 0)
 		{
 			_choice--;
@@ -165,19 +166,19 @@ class RotarySelector extends Component {
 	 */
 	public override function draw() {
 		super.draw();
-		
-		var radius:Int = Math.min(_width, _height) / 2;
+		var angle:Float;
+		var radius:Float = Math.min(_width, _height) / 2;
 		drawKnob(radius);
 		resetLabels();
 		
 		var arc:Float = Math.PI * 1.5 / _numChoices; // the angle between each choice
-		var start:Int = - Math.PI / 2 - arc * (_numChoices - 1) / 2; // the starting angle for choice 0
+		var start:Float = - Math.PI / 2 - arc * (_numChoices - 1) / 2; // the starting angle for choice 0
 		
 		graphics.clear();
 		graphics.lineStyle(4, Style.BACKGROUND, .5);
 		for(i in 0..._numChoices)
 		{
-			var angle:Float = start + arc * i;
+			angle = start + arc * i;
 			var sin:Float = Math.sin(angle);
 			var cos:Float = Math.cos(angle);
 			
@@ -195,7 +196,8 @@ class RotarySelector extends Component {
 			}
 			else if(_labelMode == NUMERIC)
 			{
-				lab.text = (i + 1).toString();
+				//lab.text = (i + 1).toString();
+				lab.text = (i + 1) + "";
 			}
 			else if(_labelMode == ROMAN)
 			{
@@ -204,7 +206,7 @@ class RotarySelector extends Component {
 			}
 			if(i != _choice)
 			{
-				lab.alpha = 0.5;
+				//lab.alpha = 0.5;
 			}
 		}
 		
@@ -220,8 +222,6 @@ class RotarySelector extends Component {
 		_label.y = _height + 2;
 	}
 	
-	
-	
 	///////////////////////////////////
 	// event handler
 	///////////////////////////////////
@@ -231,6 +231,7 @@ class RotarySelector extends Component {
 	 * @param event The MouseEvent passed by the system.
 	 */
 	function onClick(event:MouseEvent) {
+		//trace("event?");
 		if(mouseX < _width / 2)
 		{
 			decrement();
@@ -242,13 +243,10 @@ class RotarySelector extends Component {
 	}
 	
 	function onLabelClick(event:Event) {
-		var lab:Label = cast( event.target, Label);
-		choice = _labels.getChildIndex(lab);
+		//var lab:Label = cast( event.target, Label);
+		//choice = _labels.getChildIndex(lab);
 	}
-	
-	
-	
-	
+
 	///////////////////////////////////
 	// getter/setters
 	///////////////////////////////////
@@ -256,37 +254,51 @@ class RotarySelector extends Component {
 	/**
 	 * Gets / sets the number of available choices (maximum of 10).
 	 */
-	public function setNumChoices(value:UInt):UInt {
-		_numChoices = Math.min(value, 10);
+	public function set_numChoices(value:Int):Int {
+		_numChoices = Std.int(Math.min(value, 10));
+		/*
+		if (value > 10) {
+			_numChoices = 10;
+		}else {
+			_numChoices = value;
+		}
+		*/
 		draw();
 		return value;
 	}
-	public function getNumChoices():UInt {
+	public function get_numChoices():Int {
 		return _numChoices;
 	}
 	
 	/**
 	 * Gets / sets the current choice, keeping it in range of 0 to numChoices - 1.
 	 */
-	public function setChoice(value:UInt):UInt {
-		_choice = Math.max(0, Math.min(_numChoices - 1, value));
+	public function set_choice(value:Int):Int {
+		_choice = Std.int(Math.max(0, Math.min(_numChoices - 1, value)));
+		/*
+		if ( value < 0) {
+			_choice = 0;
+		}else {
+			_choice = value;
+		}
+		*/
 		draw();
 		dispatchEvent(new Event(Event.CHANGE));
 		return value;
 	}
-	public function getChoice():UInt {
+	public function get_choice():Int {
 		return _choice;
 	}
 	
 	/**
 	 * Specifies what will be used as labels for each choice. Valid values are "alphabetic", "numeric", and "none".
 	 */
-	public function setLabelMode(value:String):String {
+	public function set_labelMode(value:String):String {
 		_labelMode = value;
 		draw();
 		return value;
 	}
-	public function getLabelMode():String {
+	public function get_labelMode():String {
 		return _labelMode;
 	}
 }

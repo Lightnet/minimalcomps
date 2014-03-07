@@ -37,10 +37,10 @@ import flash.utils.Timer;
 
 class IndicatorLight extends Component {
 	
-	public var color(getColor, setColor) : UInt;
-	public var isFlashing(getIsFlashing, null) : Bool;
-	public var isLit(getIsLit, setIsLit) : Bool;
-	public var label(getLabel, setLabel) : String;
+	public var color(get, set) : UInt;
+	public var isFlashing(get, null) : Bool;
+	public var isLit(get, set) : Bool;
+	public var label(get, set) : String;
 	
 	var _color:UInt;
 	var _lit:Bool ;
@@ -48,8 +48,6 @@ class IndicatorLight extends Component {
 	var _labelText:String ;
 	var _lite:Shape;
 	var _timer:Timer;
-	
-	
 	
 	/**
 	 * Constructor
@@ -121,9 +119,6 @@ class IndicatorLight extends Component {
 		draw();
 	}
 	
-	
-	
-	
 	///////////////////////////////////
 	// public methods
 	///////////////////////////////////
@@ -156,9 +151,6 @@ class IndicatorLight extends Component {
 		_timer.start();
 	}
 	
-	
-	
-	
 	///////////////////////////////////
 	// getter/setters
 	///////////////////////////////////
@@ -166,44 +158,44 @@ class IndicatorLight extends Component {
 	/**
 	 * Sets or gets whether or not the light is lit.
 	 */
-	public function setIsLit(value:Bool):Bool {
+	public function set_isLit(value:Bool):Bool {
 		_timer.stop();
 		_lit = value;
 		drawLite();
 		return value;
 	}
-	public function getIsLit():Bool {
+	public function get_isLit():Bool {
 		return _lit;
 	}
 	
 	/**
 	 * Sets / gets the color of this light (when lit).
 	 */
-	public function setColor(value:UInt):UInt {
+	public function set_color(value:UInt):UInt {
 		_color = value;
 		draw();
 		return value;
 	}
-	public function getColor():UInt {
+	public function get_color():UInt {
 		return _color;
 	}
 	
 	/**
 	 * Returns whether or not the light is currently flashing.
 	 */
-	public function getIsFlashing():Bool {
+	public function get_isFlashing():Bool {
 		return _timer.running;
 	}
 	
 	/**
 	 * Sets / gets the label text shown on this component.
 	 */
-	public function setLabel(str:String):String {
+	public function set_label(str:String):String {
 		_labelText = str;
 		draw();
 		return str;
 	}
-	public function getLabel():String {
+	public function get_label():String {
 		return _labelText;
 	}
 	

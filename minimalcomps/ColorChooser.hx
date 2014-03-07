@@ -49,10 +49,10 @@ class ColorChooser extends Component {
 	public static var TOP = "top";
 	public static var BOTTOM = "bottom";
 	
-	public var model(getModel, setModel) : DisplayObject;
-	public var popupAlign(getPopupAlign, setPopupAlign) : String;
-	public var usePopup(getUsePopup, setUsePopup) : Bool;
-	public var value(getValue, setValue) : UInt;
+	public var model(get, set) : DisplayObject;
+	public var popupAlign(get, set) : String;
+	public var usePopup(get, set) : Bool;
+	public var value(get, set) : UInt;
 	
 	var _input:InputText;
 	var _swatch:Sprite;
@@ -161,7 +161,7 @@ class ColorChooser extends Component {
 	/**
 	 * Gets / sets the color value of this ColorChooser.
 	 */
-	public function setValue(n:UInt):UInt {
+	public function set_value(n:UInt):UInt {
 		var str = StringTools.hex( n ).toUpperCase();
 		while(str.length < 6)
 			str = "0" + str;
@@ -170,7 +170,7 @@ class ColorChooser extends Component {
 		invalidate();
 		return n;
 	}
-	public function getValue():UInt {
+	public function get_value():UInt {
 		return _value;
 	}
 	
@@ -179,8 +179,10 @@ class ColorChooser extends Component {
 	///////////////////////////////////}
 	
 	
-	public function getModel() return _model
-	public function setModel( value : DisplayObject ) {
+	public function get_model():DisplayObject {
+		return _model;
+	}
+	public function set_model( value : DisplayObject ) {
 		_model = value;
 		if (_model!=null) {
 			drawColors(_model);
@@ -202,15 +204,15 @@ class ColorChooser extends Component {
 		placeColors();
 	}
 	
-	public function getPopupAlign():String{ return _popupAlign; }
-	public function setPopupAlign(value:String):String{
+	public function get_popupAlign():String{ return _popupAlign; }
+	public function set_popupAlign(value:String):String{
 		_popupAlign = value;
 		placeColors();
 		return value;
 	}
 	
-	public function getUsePopup():Bool{ return _usePopup; }
-	public function setUsePopup(value:Bool):Bool{
+	public function get_usePopup():Bool{ return _usePopup; }
+	public function set_usePopup(value:Bool):Bool{
 		_usePopup = value;
 		
 		if( _usePopup ) {
@@ -287,10 +289,10 @@ class ColorChooser extends Component {
 	function placeColors() {
 		// TODO LocalToLocal the x and y to place it properly.
 		switch( _popupAlign ) {
-			case TOP: 
+			case "top": 
 				_colorsContainer.x = x;
 				_colorsContainer.y = y-_colorsContainer.height - 4;
-			case BOTTOM: 
+			case "bottom": 
 				_colorsContainer.x = x;
 				_colorsContainer.y = y+22;
 			default: 

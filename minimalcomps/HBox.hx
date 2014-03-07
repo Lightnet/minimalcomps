@@ -35,7 +35,7 @@ import flash.events.Event;
 
 class HBox extends Component {
 	
-	public var spacing(getSpacing, setSpacing) : Float;
+	public var spacing(get, set) : Float;
 	var _spacing:Float;	
 	
 	/**
@@ -69,6 +69,7 @@ class HBox extends Component {
 	public override function draw() {
 		var xpos:Float = 0;
 		for(i in 0...numChildren) {
+			//var child = getChildAt(i);
 			var child = getChildAt(i);
 			child.x = xpos;
 			xpos += child.width;
@@ -79,12 +80,12 @@ class HBox extends Component {
 	/**
 	 * Gets / sets the spacing between each sub component.
 	 */
-	public function setSpacing(s:Float):Float {
+	public function set_spacing(s:Float):Float {
 		_spacing = s;
 		invalidate();
 		return s;
 	}
-	public function getSpacing():Float {
+	public function get_spacing():Float {
 		return _spacing;
 	}
 }

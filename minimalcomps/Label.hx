@@ -33,13 +33,14 @@ import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 
+
 class Label extends Component {
 	
-	public var autoSize(getAutoSize, setAutoSize) : Bool;
-	public var text(getText, setText) : String;
-	var _autoSize:Bool;
-	var _text:String;
-	var _tf:TextField;
+	public var autoSize(get, set) : Bool;
+	public var text(get, set) : String;
+	public var _autoSize:Bool;
+	public var _text:String;
+	public var _tf:TextField;
 	
 	/**
 	 * Constructor
@@ -74,7 +75,13 @@ class Label extends Component {
 		_tf.embedFonts = true;
 		_tf.selectable = false;
 		_tf.mouseEnabled = false;
-		_tf.defaultTextFormat = new TextFormat("PFRondaSeven", 8, Style.LABEL_TEXT);
+		
+		var myFont = new MyFont();
+		
+		//_tf.defaultTextFormat = new TextFormat("PFRondaSeven", 8, Style.LABEL_TEXT);
+		//_tf.defaultTextFormat = new TextFormat("FFF Atlantis Condense", 8, Style.LABEL_TEXT);
+		//_tf.defaultTextFormat = new TextFormat("FFF Atlantis Condense (95)", 8, Style.LABEL_TEXT);
+		_tf.defaultTextFormat = new TextFormat(Style.FontName, 8, Style.LABEL_TEXT);
 		_tf.text = _text;			
 		addChild(_tf);
 		draw();
@@ -115,23 +122,25 @@ class Label extends Component {
 	/**
 	 * Gets / sets the text of this Label.
 	 */
-	public function setText(t:String):String {
+	public function set_text(t:String):String {
 		_text = t;
 		invalidate();
 		return t;
 	}
-	public function getText():String {
+	
+	public function get_text():String {
 		return _text;
 	}
 	
 	/**
 	 * Gets / sets whether or not this Label will autosize.
 	 */
-	public function setAutoSize(b:Bool):Bool {
+	public function set_autoSize(b:Bool):Bool {
 		_autoSize = b;
 		return b;
 	}
-	public function getAutoSize():Bool {
+	public function get_autoSize():Bool {
 		return _autoSize;
 	}
 }
+

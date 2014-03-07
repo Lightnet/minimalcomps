@@ -35,13 +35,13 @@ import flash.events.MouseEvent;
 
 class Knob extends Component {
 	
-	public var label(getLabel, setLabel) : String;
-	public var labelPrecision(getLabelPrecision, setLabelPrecision) : Int;
-	public var maximum(getMaximum, setMaximum) : Float;
-	public var minimum(getMinimum, setMinimum) : Float;
-	public var mouseRange(getMouseRange, setMouseRange) : Float;
-	public var showValue(getShowValue, setShowValue) : Bool;
-	public var value(getValue, setValue) : Float;
+	public var label(get, set) : String;
+	public var labelPrecision(get, set) : Int;
+	public var maximum(get, set) : Float;
+	public var minimum(get, set) : Float;
+	public var mouseRange(get, set) : Float;
+	public var showValue(get, set) : Bool;
+	public var value(get, set) : Float;
 	
 	var _knob:Sprite;
 	var _label:Label;
@@ -241,84 +241,84 @@ class Knob extends Component {
 	/**
 	 * Gets / sets the maximum value of this knob.
 	 */
-	public function setMaximum(m:Float):Float {
+	public function set_maximum(m:Float):Float {
 		_max = m;
 		correctValue();
 		updateKnob();
 		return m;
 	}
-	public function getMaximum():Float {
+	public function get_maximum():Float {
 		return _max;
 	}
 	
 	/**
 	 * Gets / sets the minimum value of this knob.
 	 */
-	public function setMinimum(m:Float):Float {
+	public function set_minimum(m:Float):Float {
 		_min = m;
 		correctValue();
 		updateKnob();
 		return m;
 	}
-	public function getMinimum():Float {
+	public function get_minimum():Float {
 		return _min;
 	}
 	
 	/**
 	 * Sets / gets the current value of this knob.
 	 */
-	public function setValue(v:Float):Float {
+	public function set_value(v:Float):Float {
 		_value = v;
 		correctValue();
 		updateKnob();
 		return v;
 	}
-	public function getValue():Float {
+	public function get_value():Float {
 		return _value;
 	}
 	
 	/**
 	 * Sets / gets the number of pixels the mouse needs to move to make the value of the knob go from min to max.
 	 */
-	public function setMouseRange(value:Float):Float{
+	public function set_mouseRange(value:Float):Float{
 		_mouseRange = value;
 		return value;
 	}
-	public function getMouseRange():Float {
+	public function get_mouseRange():Float {
 		return _mouseRange;
 	}
 	
 	/**
 	 * Gets / sets the number of decimals to format the value label.
 	 */
-	public function setLabelPrecision(decimals:Int):Int {
+	public function set_labelPrecision(decimals:Int):Int {
 		_precision = decimals;
 		return decimals;
 	}
-	public function getLabelPrecision():Int {
+	public function get_labelPrecision():Int {
 		return _precision;
 	}
 	
 	/**
 	 * Gets / sets whether or not to show the value label.
 	 */
-	public function setShowValue(value:Bool):Bool {
+	public function set_showValue(value:Bool):Bool {
 		_valueLabel.visible = value;
 		return value;
 	}
-	public function getShowValue():Bool {
+	public function get_showValue():Bool {
 		return _valueLabel.visible;
 	}
 	
 	/**
 	 * Gets / sets the text shown in this component's label.
 	 */
-	public function setLabel(str:String):String {
+	public function set_label(str:String):String {
 		_labelText = str;
 		draw();
 		return str;
 	}
-	public function getLabel():String {
+	public function get_label():String {
 		return _labelText;
 	}
 }

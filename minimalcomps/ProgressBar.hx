@@ -33,8 +33,8 @@ import flash.display.Sprite;
 
 class ProgressBar extends Component {
 	
-	public var maximum(getMaximum, setMaximum) : Float;
-	public var value(getValue, setValue) : Float;
+	public var maximum(get, set) : Float;
+	public var value(get, set) : Float;
 	var _back:Sprite;
 	var _bar:Sprite;
 	var _value:Float;
@@ -121,25 +121,25 @@ class ProgressBar extends Component {
 	/**
 	 * Gets / sets the maximum value of the ProgressBar.
 	 */
-	public function setMaximum(m:Float):Float {
+	public function set_maximum(m:Float):Float {
 		_max = m;
 		_value = Math.min(_value, _max);
 		update();
 		return m;
 	}
-	public function getMaximum():Float {
+	public function get_maximum():Float {
 		return _max;
 	}
 	
 	/**
 	 * Gets / sets the current value of the ProgressBar.
 	 */
-	public function setValue(v:Float):Float {
+	public function set_value(v:Float):Float {
 		_value = Math.min(v, _max);
 		update();
 		return v;
 	}
-	public function getValue():Float {
+	public function get_value():Float {
 		return _value;
 	}
 	

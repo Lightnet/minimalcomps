@@ -35,14 +35,14 @@ import flash.events.MouseEvent;
 
 class Window extends Component {
 	
-	public var color(getColor, setColor) : Int;
-	public var content(getContent, null) : DisplayObjectContainer;
-	public var draggable(getDraggable, setDraggable) : Bool;
-	public var hasMinimizeButton(getHasMinimizeButton, setHasMinimizeButton) : Bool;
-	public var minimized(getMinimized, setMinimized) : Bool;
-	public var shadow(default, setShadow) : Bool;
-	public var title(getTitle, setTitle) : String;
-	override public var height(getHeight, setHeight) : Float;
+	public var color(get, set) : Int;
+	public var content(get, null) : DisplayObjectContainer;
+	public var draggable(get, set) : Bool;
+	public var hasMinimizeButton(get, set) : Bool;
+	public var minimized(get, set) : Bool;
+	public var shadow(default, set) : Bool;
+	public var title(get, set) : String;
+	//public var height(get, set) : Float;
 	
 	var _title:String;
 	var _titleBar:Panel;
@@ -114,9 +114,6 @@ class Window extends Component {
 		filters = [getShadow(4, false)];
 	}
 	
-	
-	
-	
 	///////////////////////////////////
 	// public methods
 	///////////////////////////////////
@@ -168,7 +165,7 @@ class Window extends Component {
 	/**
 	 * Gets / sets whether or not this Window will have a drop shadow.
 	 */
-	function setShadow(b:Bool):Bool {
+	function set_shadow(b:Bool):Bool {
 		this.shadow = b;
 		if( b )
 			filters = [getShadow(4, false)];
@@ -180,38 +177,38 @@ class Window extends Component {
 	/**
 	 * Gets / sets the background color of this panel.
 	 */
-	function setColor(c:Int):Int {
+	function set_color(c:Int):Int {
 		_color = c;
 		invalidate();
 		return c;
 	}
-	function getColor():Int {
+	function get_color():Int {
 		return _color;
 	}
 	
 	/**
 	 * Gets / sets the title shown in the title bar.
 	 */
-	function setTitle(t:String):String {
+	function set_title(t:String):String {
 		_title = t;
 		_titleLabel.text = _title;
 		return t;
 	}
-	function getTitle():String {
+	function get_title():String {
 		return _title;
 	}
 	
 	/**
 	 * Container for content added to this panel. This is just a reference to the content of the internal Panel, which is masked, so best to add children to content, rather than directly to the window.
 	 */
-	function getContent():DisplayObjectContainer {
+	function get_content():DisplayObjectContainer {
 		return _panel.content;
 	}
 	
 	/**
 	 * Sets / gets whether or not the window will be draggable by the title bar.
 	 */
-	function setDraggable(b:Bool):Bool {
+	function set_draggable(b:Bool):Bool {
 		_draggable = b;
 		_titleBar.buttonMode = _draggable;
 		_titleBar.useHandCursor = _draggable;
@@ -221,14 +218,14 @@ class Window extends Component {
 			_titleBar.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		return b;
 	}
-	function getDraggable():Bool {
+	function get_draggable():Bool {
 		return _draggable;
 	}
 	
 	/**
 	 * Gets / sets whether or not the window will show a minimize button that will toggle the window open and closed. A closed window will only show the title bar.
 	 */
-	function setHasMinimizeButton(b:Bool):Bool {
+	function set_hasMinimizeButton(b:Bool):Bool {
 		_hasMinimizeButton = b;
 		if(_hasMinimizeButton)
 			addChild(_minimizeButton);
@@ -237,14 +234,14 @@ class Window extends Component {
 		invalidate();
 		return b;
 	}
-	function getHasMinimizeButton():Bool {
+	function get_hasMinimizeButton():Bool {
 		return _hasMinimizeButton;
 	}
 	
 	/**
 	 * Gets / sets whether the window is closed. A closed window will only show its title bar.
 	 */
-	function setMinimized(value:Bool):Bool {
+	function set_minimized(value:Bool):Bool {
 		_minimized = value;
 		_panel.visible = !_minimized;
 		if(_minimized)
@@ -254,14 +251,14 @@ class Window extends Component {
 		dispatchEvent(new Event(Event.RESIZE));
 		return value;
 	}
-	function getMinimized():Bool {
+	function get_minimized():Bool {
 		return _minimized;
 	}
 	
 	/**
 	 * Gets the height of the component. A minimized window's height will only be that of its title bar.
 	 */
-	override function getHeight():Float {
+	override function get_height():Float {
 		if(_panel.visible)
 			return _comp.height;
 		else

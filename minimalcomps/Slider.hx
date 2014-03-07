@@ -39,20 +39,20 @@ class Slider extends Component {
 	public inline static var HORIZONTAL:String = "horizontal";
 	public inline static var VERTICAL:String = "vertical";
 	
-	public var backClick(getBackClick, setBackClick) : Bool;
-	public var maximum(getMaximum, setMaximum) : Float;
-	public var minimum(getMinimum, setMinimum) : Float;
-	public var tick(getTick, setTick) : Float;
-	public var value(getValue, setValue) : Float;
+	public var backClick(get, set) : Bool;
+	public var maximum(get, set) : Float;
+	public var minimum(get, set) : Float;
+	public var tick(get, set) : Float;
+	public var value(get, set) : Float;
 	
 	var _handle:Sprite;
 	var _back:Sprite;
 	var _backClick:Bool;
-	var _value:Float ;
-	var _max:Float ;
-	var _min:Float ;
+	var _value:Float;
+	var _max:Float;
+	var _min:Float;
 	var _orientation:String;
-	var _tick:Float ;
+	var _tick:Float;
 	
 	/**
 	 * Constructor
@@ -187,9 +187,6 @@ class Slider extends Component {
 		this.value = value;
 	}
 	
-	
-	
-	
 	///////////////////////////////////
 	// event handlers
 	///////////////////////////////////
@@ -242,16 +239,15 @@ class Slider extends Component {
 	 */
 	function onSlide(event:MouseEvent) {
 		var oldValue:Float = _value;
-		_value = switch(_orientation) {
-			case HORIZONTAL: _handle.x / (width - height) * (_max - _min) + _min;
-			case VERTICAL: (_height - _width - _handle.y) / (height - width) * (_max - _min) + _min;
+		
+		switch(_orientation) {
+			case HORIZONTAL:_value = _handle.x / (width - height) * (_max - _min) + _min;
+			case VERTICAL:_value = (_height - _width - _handle.y) / (height - width) * (_max - _min) + _min;
 		}
+		
 		if(_value != oldValue)
 			dispatchEvent(new Event(Event.CHANGE));
 	}
-	
-	
-	
 	
 	///////////////////////////////////
 	// getter/setters
@@ -260,62 +256,62 @@ class Slider extends Component {
 	/**
 	 * Sets / gets whether or not a click on the background of the slider will move the handler to that position.
 	 */
-	public function setBackClick(b:Bool):Bool{
+	public function set_backClick(b:Bool):Bool{
 		_backClick = b;
 		invalidate();
 		return b;
 	}
-	public function getBackClick():Bool{
+	public function get_backClick():Bool{
 		return _backClick;
 	}
 	
 	/**
 	 * Sets / gets the current value of this slider.
 	 */
-	public function setValue(v:Float):Float {
+	public function set_value(v:Float):Float {
 		_value = v;
 		correctValue();
 		positionHandle();
 		return v;
 	}
-	public function getValue():Float {
+	public function get_value():Float {
 		return Math.round(_value / _tick) * _tick;
 	}
 	
 	/**
 	 * Gets / sets the maximum value of this slider.
 	 */
-	public function setMaximum(m:Float):Float{
+	public function set_maximum(m:Float):Float{
 		_max = m;
 		correctValue();
 		positionHandle();
 		return m;
 	}
-	public function getMaximum():Float{
+	public function get_maximum():Float{
 		return _max;
 	}
 	
 	/**
 	 * Gets / sets the minimum value of this slider.
 	 */
-	public function setMinimum(m:Float):Float {
+	public function set_minimum(m:Float):Float {
 		_min = m;
 		correctValue();
 		positionHandle();
 		return m;
 	}
-	public function getMinimum():Float {
+	public function get_minimum():Float {
 		return _min;
 	}
 	
 	/**
 	 * Gets / sets the tick value of this slider. This round the value to the nearest multiple of this number. 
 	 */
-	public function setTick(t:Float):Float {
+	public function set_tick(t:Float):Float {
 		_tick = t;
 		return t;
 	}
-	public function getTick():Float {
+	public function get_tick():Float {
 		return _tick;
 	}
 	

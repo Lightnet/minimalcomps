@@ -35,10 +35,10 @@ import flash.text.TextFormat;
 
 class InputText extends Component {
 	
-	public var maxChars(getMaxChars, setMaxChars) : Int;
-	public var password(getPassword, setPassword) : Bool;
-	public var restrict(getRestrict, setRestrict) : String;
-	public var text(getText, setText) : String;
+	public var maxChars(get, set) : Int;
+	public var password(get, set) : Bool;
+	public var restrict(get, set) : String;
+	public var text(get, set) : String;
 	
 	var _back:Sprite;
 	var _password:Bool;
@@ -82,13 +82,12 @@ class InputText extends Component {
 		_tf.embedFonts = true;
 		_tf.selectable = true;
 		_tf.type = TextFieldType.INPUT;
-		_tf.defaultTextFormat = new TextFormat("PFRondaSeven", 8, Style.INPUT_TEXT);
+		//_tf.defaultTextFormat = new TextFormat("PFRondaSeven", 8, Style.INPUT_TEXT);
+		_tf.defaultTextFormat = new TextFormat(Style.FontName, 8, Style.INPUT_TEXT);
+		
 		addChild(_tf);
 		_tf.addEventListener(Event.CHANGE, onChange);
 	}
-	
-	
-	
 	
 	///////////////////////////////////
 	// public methods
@@ -117,10 +116,7 @@ class InputText extends Component {
 		_tf.x = 2;
 		_tf.y = Math.round(_height / 2 - _tf.height / 2);
 	}
-	
-	
-	
-	
+
 	///////////////////////////////////
 	// event handlers
 	///////////////////////////////////
@@ -132,10 +128,7 @@ class InputText extends Component {
 	function onChange(event:Event) {
 		_text = _tf.text;
 	}
-	
-	
-	
-	
+
 	///////////////////////////////////
 	// getter/setters
 	///////////////////////////////////
@@ -143,46 +136,46 @@ class InputText extends Component {
 	/**
 	 * Gets / sets the text shown in this InputText.
 	 */
-	public function setText(t:String):String{
+	public function set_text(t:String):String{
 		_text = t;
 		invalidate();
 		return t;
 	}
-	public function getText():String{
+	public function get_text():String{
 		return _text;
 	}
 	
 	/**
 	 * Gets / sets the list of characters that are allowed in this TextInput.
 	 */
-	public function setRestrict(str:String):String {
+	public function set_restrict(str:String):String {
 		_tf.restrict = str;
 		return str;
 	}
-	public function getRestrict():String {
+	public function get_restrict():String {
 		return _tf.restrict;
 	}
 	
 	/**
 	 * Gets / sets the maximum number of characters that can be shown in this InputText.
 	 */
-	public function setMaxChars(max:Int):Int {
+	public function set_maxChars(max:Int):Int {
 		_tf.maxChars = max;
 		return max;
 	}
-	public function getMaxChars():Int {
+	public function get_maxChars():Int {
 		return _tf.maxChars;
 	}
 	
 	/**
 	 * Gets / sets whether or not this input text will show up as password (asterisks).
 	 */
-	public function setPassword(b:Bool):Bool {
+	public function set_password(b:Bool):Bool {
 		_password = b;
 		invalidate();
 		return b;
 	}
-	public function getPassword():Bool {
+	public function get_password():Bool {
 		return _password;
 	}
 }

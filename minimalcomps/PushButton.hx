@@ -34,9 +34,9 @@ import flash.events.MouseEvent;
 
 class PushButton extends Component {
 	
-	public var label(getLabel, setLabel) : String;
-	public var selected(getSelected, setSelected) : Bool;
-	public var toggle(getToggle, setToggle) : Bool;
+	public var label(get, set) : String;
+	public var selected(get, set) : Bool;
+	public var toggle(get, set) : Bool;
 	var _back:Sprite;
 	var _face:Sprite;
 	var _label:Label;
@@ -145,8 +145,10 @@ class PushButton extends Component {
 	 * @param event The MouseEvent passed by the system.
 	 */
 	function onMouseOver(event:MouseEvent) {
+		_face.filters = [getShadow(2)];
 		_over = true;
 		addEventListener(MouseEvent.ROLL_OUT, onMouseOut);
+		draw();
 	}
 	
 	/**
@@ -154,9 +156,16 @@ class PushButton extends Component {
 	 * @param event The MouseEvent passed by the system.
 	 */
 	function onMouseOut(event:MouseEvent) {
+		//_face.filters = [getShadow(1, true)];
+		_face.filters = null;
 		_over = false;
-		if(!_down)
-			_face.filters = [getShadow(1)];
+		if (!_down){
+			//_face.filters = [getShadow(1, _selected)];
+			//trace("out?>");
+			//_face.filters = [getShadow(1)];
+		}
+		//trace("out?");
+		draw();
 	}
 	
 	/**
@@ -167,6 +176,7 @@ class PushButton extends Component {
 		_down = true;
 		_face.filters = [getShadow(1, true)];
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+		//trace("down?");
 	}
 	
 	/**
@@ -177,8 +187,10 @@ class PushButton extends Component {
 		if(_toggle  && _over)
 			_selected = !_selected;
 		_down = _selected;
-		_face.filters = [getShadow(1, _selected)];
+		//_face.filters = [getShadow(1, _selected)];
 		stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+		//trace("up?");
+		
 	}
 	
 	
@@ -191,16 +203,16 @@ class PushButton extends Component {
 	/**
 	 * Sets / gets the label text shown on this Pushbutton.
 	 */
-	public function setLabel(str:String):String {
+	public function set_label(str:String):String {
 		_labelText = str;
 		draw();
 		return str;
 	}
-	public function getLabel():String {
+	public function get_label():String {
 		return _labelText;
 	}
 	
-	public function setSelected(value:Bool):Bool {
+	public function set_selected(value:Bool):Bool {
 		if(!_toggle)
 			value = false;
 		
@@ -209,15 +221,15 @@ class PushButton extends Component {
 		_face.filters = [getShadow(1, _selected)];
 		return value;
 	}
-	public function getSelected():Bool {
+	public function get_selected():Bool {
 		return _selected;
 	}
 	
-	public function setToggle(value:Bool):Bool {
+	public function set_toggle(value:Bool):Bool {
 		_toggle = value;
 		return value;
 	}
-	public function getToggle():Bool {
+	public function get_toggle():Bool {
 		return _toggle;
 	}
 	

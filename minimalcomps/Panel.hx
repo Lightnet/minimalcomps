@@ -34,8 +34,8 @@ import flash.display.Sprite;
 
 class Panel extends Component {
 	
-	public var color(getColor, setColor) : Int;
-	public var shadow(getShadowBool, setShadowBool) : Bool;
+	public var color(get, set) : Int;
+	public var shadow(get, set) : Bool;
 	
 	var _mask:Sprite;
 	var _background:Shape;
@@ -131,7 +131,7 @@ class Panel extends Component {
 	/**
 	 * Gets / sets whether or not this Panel will have an inner shadow.
 	 */
-	public function setShadowBool(b:Bool):Bool {
+	public function set_shadow(b:Bool):Bool {
 		_shadow = b;
 		if(_shadow) 
 			filters = [getShadow(2, true)];
@@ -139,19 +139,19 @@ class Panel extends Component {
 			filters = [];
 		return b;
 	}
-	public function getShadowBool():Bool {
+	public function get_shadow():Bool {
 		return _shadow;
 	}
 	
 	/**
 	 * Gets / sets the backgrond color of this panel.
 	 */
-	public function setColor(c:Int):Int {
+	public function set_color(c:Int):Int {
 		_color = c;
 		invalidate();
 		return c;
 	}
-	public function getColor():Int {
+	public function get_color():Int {
 		return _color;
 	}
 }
